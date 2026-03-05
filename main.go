@@ -1,7 +1,8 @@
 package main
 
 import (
-	arithmetics "adtech.com/go_monorepo/modules"
+	"adtech.com/go_monorepo/modules/arithmetics"
+	"adtech.com/go_monorepo/modules/strings"
 )
 
 func main() {
@@ -13,23 +14,23 @@ func calculate() {
 	b := 5.0
 
 	sumResult := arithmetics.Sum(a, b)
-	println("The sum of", a, "and", b, "is", sumResult)
+	println("The sum of", strings.FormatFloat(a), "and", strings.FormatFloat(b), "is", strings.FormatFloat(sumResult))
 
 	subtractResult := arithmetics.Subtract(a, b)
-	println("The subtraction of", a, "and", b, "is", subtractResult)
+	println("The subtraction of", strings.FormatFloat(a), "and", strings.FormatFloat(b), "is", strings.FormatFloat(subtractResult))
 
 	multiplyResult := arithmetics.Multiply(a, b)
-	println("The multiplication of", a, "and", b, "is", multiplyResult)
+	println("The multiplication of", strings.FormatFloat(a), "and", strings.FormatFloat(b), "is", strings.FormatFloat(multiplyResult))
 
 	divideResult := arithmetics.Divide(a, b)
-	println("The division of", a, "and", b, "is", divideResult)
+	println("The division of", strings.FormatFloat(a), "and", strings.FormatFloat(b), "is", strings.FormatFloat(divideResult))
 
 	zero := 0.0
 	nearZero := 0.01
 	for i := 0; i < 10; i++ {
 		nearZero *= nearZero
 	}
-	println("Now let's try to divide by zero (", zero, ") and a very small number:", nearZero)
+	println("Now let's try to divide by zero (", strings.FormatFloat(zero), ") and a near-zero number:", strings.FormatFloat(nearZero))
 
 	defer func() {
 		if r := recover(); r != nil {
@@ -40,7 +41,7 @@ func calculate() {
 
 	defer func() {
 		if r := recover(); r != nil {
-			println("Division by a very small number caused a panic")
+			println("Division by a near-zero number caused a panic")
 		}
 	}()
 	arithmetics.Divide(a, nearZero)
