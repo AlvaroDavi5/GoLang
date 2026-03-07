@@ -3,9 +3,13 @@ package main
 import (
 	arith "adtech.com/go_monorepo/modules/arithmetics"
 	str "adtech.com/go_monorepo/modules/strings"
+	"rsc.io/quote"
 )
 
 func main() {
+	helloWorld := quote.Hello()
+	println(helloWorld, "\n")
+
 	calculate()
 }
 
