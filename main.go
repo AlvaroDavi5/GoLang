@@ -1,8 +1,8 @@
 package main
 
 import (
-	"adtech.com/go_monorepo/modules/arithmetics"
-	"adtech.com/go_monorepo/modules/strings"
+	arith "adtech.com/go_monorepo/modules/arithmetics"
+	str "adtech.com/go_monorepo/modules/strings"
 )
 
 func main() {
@@ -13,36 +13,36 @@ func calculate() {
 	a := 10.0
 	b := 5.0
 
-	sumResult := arithmetics.Sum(a, b)
-	println("The sum of", strings.FormatFloat(a), "and", strings.FormatFloat(b), "is", strings.FormatFloat(sumResult))
+	sumResult := arith.Sum(a, b)
+	println("The sum of", str.FormatFloat(a), "and", str.FormatFloat(b), "is", str.FormatFloat(sumResult))
 
-	subtractResult := arithmetics.Subtract(a, b)
-	println("The subtraction of", strings.FormatFloat(a), "and", strings.FormatFloat(b), "is", strings.FormatFloat(subtractResult))
+	subtractResult := arith.Subtract(a, b)
+	println("The subtraction of", str.FormatFloat(a), "and", str.FormatFloat(b), "is", str.FormatFloat(subtractResult))
 
-	multiplyResult := arithmetics.Multiply(a, b)
-	println("The multiplication of", strings.FormatFloat(a), "and", strings.FormatFloat(b), "is", strings.FormatFloat(multiplyResult))
+	multiplyResult := arith.Multiply(a, b)
+	println("The multiplication of", str.FormatFloat(a), "and", str.FormatFloat(b), "is", str.FormatFloat(multiplyResult))
 
-	divideResult := arithmetics.Divide(a, b)
-	println("The division of", strings.FormatFloat(a), "and", strings.FormatFloat(b), "is", strings.FormatFloat(divideResult))
+	divideResult := arith.Divide(a, b)
+	println("The division of", str.FormatFloat(a), "and", str.FormatFloat(b), "is", str.FormatFloat(divideResult))
 
 	zero := 0.0
 	nearZero := 0.01
 	for i := 0; i < 10; i++ {
 		nearZero *= nearZero
 	}
-	println("Now let's try to divide by zero (", strings.FormatFloat(zero), ") and a near-zero number:", strings.FormatFloat(nearZero))
+	println("Now let's try to divide by zero (", str.FormatFloat(zero), ") and a near-zero number:", str.FormatFloat(nearZero))
 
 	defer func() {
 		if r := recover(); r != nil {
 			println("Division by zero caused a panic")
 		}
 	}()
-	arithmetics.Divide(a, zero)
+	arith.Divide(a, zero)
 
 	defer func() {
 		if r := recover(); r != nil {
 			println("Division by a near-zero number caused a panic")
 		}
 	}()
-	arithmetics.Divide(a, nearZero)
+	arith.Divide(a, nearZero)
 }
