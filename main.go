@@ -26,24 +26,18 @@ func calculate(a float64, b float64) {
 	divideResult := arith.Divide(a, b)
 	println("The division of", str.FormatFloat(a), "and", str.FormatFloat(b), "is", str.FormatFloat(divideResult))
 
-	zero := 0.0
-	nearZero := 0.01
-	for i := 0; i < 10; i++ {
-		nearZero *= nearZero
-	}
-	println("Now let's try to divide by zero (", str.FormatFloat(zero), ") and a near-zero number:", str.FormatFloat(nearZero))
+	println("Let's try to divide by a near-zero number")
+	const nearZero = 0.000000000000000000000001
+	divideResult = arith.Divide(a, nearZero)
+	println("The division of", str.FormatFloat(a), "and ", str.FormatFloat(nearZero), " is", str.FormatFloat(divideResult))
 
+	println("Let's try to divide by zero")
+	const zero = 0.00
 	defer func() {
 		if r := recover(); r != nil {
-			println("Division by zero caused a panic")
+			println("Division by", str.FormatFloat(zero), "caused a panic")
 		}
 	}()
-	arith.Divide(a, zero)
-
-	defer func() {
-		if r := recover(); r != nil {
-			println("Division by a near-zero number caused a panic")
-		}
-	}()
-	arith.Divide(a, nearZero)
+	divideResult = arith.Divide(a, zero)
+	println("The division of", str.FormatFloat(a), "and ", str.FormatFloat(zero), " is", str.FormatFloat(divideResult))
 }
