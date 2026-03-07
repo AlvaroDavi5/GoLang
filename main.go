@@ -10,13 +10,10 @@ func main() {
 	helloWorld := quote.Hello()
 	println(helloWorld, "\n")
 
-	calculate()
+	calculate(10.0, 5.0)
 }
 
-func calculate() {
-	a := 10.0
-	b := 5.0
-
+func calculate(a float64, b float64) {
 	sumResult := arith.Sum(a, b)
 	println("The sum of", str.FormatFloat(a), "and", str.FormatFloat(b), "is", str.FormatFloat(sumResult))
 
