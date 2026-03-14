@@ -13,7 +13,10 @@ func Multiply(a float64, b float64) float64 {
 }
 
 func Divide(a float64, b float64) float64 {
-	checkDivisionByZero(b)
+	err := validateDivision(b)
+	if err != nil {
+		panic(err)
+	}
 
 	return a / b
 }
@@ -36,13 +39,14 @@ func Pow(x float64, y float64) float64 {
 	return result
 }
 
-func Sqrt(value float64) float64 {
-	if value < 0 {
-		panic("Cannot calculate square root of a negative number")
+func Sqrt(value float64) (float64, error) {
+	err := validateSqrt(value)
+	if err != nil {
+		return 0, err
 	}
 
 	if value == 0 {
-		return 0
+		return 0, nil
 	}
 
 	guess := value / 2.0
@@ -50,7 +54,7 @@ func Sqrt(value float64) float64 {
 		guess = (guess + value/guess) / 2.0
 	}
 
-	return guess
+	return guess, nil
 }
 
 func Abs(value float64) float64 {

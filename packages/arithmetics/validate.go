@@ -1,7 +1,19 @@
 package arithmetics
 
-func checkDivisionByZero(value float64) {
+import (
+	"errors"
+)
+
+func validateDivision(value float64) error {
 	if value == 0.0 {
-		panic("Division by zero is not allowed")
+		return errors.New("Division by zero is not allowed")
 	}
+	return nil
+}
+
+func validateSqrt(value float64) error {
+	if value < 0 {
+		return errors.New("Cannot calculate square root of a negative number")
+	}
+	return nil
 }

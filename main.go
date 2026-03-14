@@ -1,6 +1,8 @@
 package main
 
 import (
+	log "log"
+
 	arith "adtech.com/go_monorepo/packages/arithmetics"
 	str "adtech.com/go_monorepo/packages/strings"
 )
@@ -21,31 +23,35 @@ func calculate(a float64, b float64, c ...float64) {
 	}
 
 	powResult := arith.Pow(b, y)
-	println(str.FormatFloat(b), "pow", str.FormatFloat(y), "is", str.FormatFloat(powResult))
+	println(str.ParseFloat(b), "pow", str.ParseFloat(y), "is", str.ParseFloat(powResult))
 
-	println("The square-root of", str.FormatFloat(powResult), "is", str.FormatFloat(arith.Sqrt(powResult)))
+	sqrtResult, err := arith.Sqrt(powResult)
+	if err != nil {
+		log.Fatalf("Error calculating square root: %s", err.Error())
+	}
+	println("The square-root of", str.ParseFloat(powResult), "is", str.ParseFloat(sqrtResult))
 
-	println("The sum of", str.FormatFloat(a), "and", str.FormatFloat(b), "is", str.FormatFloat(arith.Sum(a, b)))
+	println("The sum of", str.ParseFloat(a), "and", str.ParseFloat(b), "is", str.ParseFloat(arith.Sum(a, b)))
 
-	println("The subtraction of", str.FormatFloat(a), "and", str.FormatFloat(b), "is", str.FormatFloat(arith.Subtract(a, b)))
+	println("The subtraction of", str.ParseFloat(a), "and", str.ParseFloat(b), "is", str.ParseFloat(arith.Subtract(a, b)))
 
-	println("The multiplication of", str.FormatFloat(a), "and", str.FormatFloat(b), "is", str.FormatFloat(arith.Multiply(a, b)))
+	println("The multiplication of", str.ParseFloat(a), "and", str.ParseFloat(b), "is", str.ParseFloat(arith.Multiply(a, b)))
 
 	divideResult := arith.Divide(a, b)
-	println("The division of", str.FormatFloat(a), "and", str.FormatFloat(b), "is", str.FormatFloat(divideResult))
+	println("The division of", str.ParseFloat(a), "by", str.ParseFloat(b), "is", str.ParseFloat(divideResult))
 
 	println("Let's try to divide by a near-zero number")
 	const nearZero = 0.000000000000000000000001
 	divideResult = arith.Divide(a, nearZero)
-	println("The division of", str.FormatFloat(a), "and ", str.FormatFloat(nearZero), " is", str.FormatFloat(divideResult))
+	println("The division of", str.ParseFloat(a), "by", str.ParseFloat(nearZero), "is", str.ParseFloat(divideResult))
 
 	println("Let's try to divide by zero")
 	const zero = 0.00
 	defer func() {
 		if r := recover(); r != nil {
-			println("Division by", str.FormatFloat(zero), "caused a panic")
+			println("Division by", str.ParseFloat(zero), "caused a panic:", r.(error).Error())
 		}
 	}()
 	divideResult = arith.Divide(a, zero)
-	println("The division of", str.FormatFloat(a), "and ", str.FormatFloat(zero), " is", str.FormatFloat(divideResult))
+	println("The division of", str.ParseFloat(a), "by", str.ParseFloat(zero), "is", str.ParseFloat(divideResult))
 }

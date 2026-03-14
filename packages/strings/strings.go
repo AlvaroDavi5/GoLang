@@ -1,33 +1,31 @@
 package strings
 
 import (
-	"strconv"
-	"strings"
+	"rsc.io/quote"
 )
 
-func FormatFloat(value float64) string {
-	strValue := strconv.FormatFloat(value, 'f', -1, 64)
-	parts := strings.Split(strValue, ".")
+func GetHelloWorld() string {
+	helloWorld := quote.Hello()
+	return helloWorld
+}
 
-	floatWithoutDecimal := strconv.FormatFloat(value, 'f', 1, 64)
-
-	if len(parts) < 2 {
-		return floatWithoutDecimal
+func ParseNumber[T number](value T) string {
+	switch v := any(value).(type) {
+	case int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64:
+		return parseIntegerToSring(v)
+	case float32:
+		return parseFloatToSring(float64(v))
+	case float64:
+		return parseFloatToSring(v)
+	default:
+		return parseNumberToSring(value)
 	}
+}
 
-	floatPart := parts[1]
-	allZeros := true
-	for _, digit := range floatPart {
-		if digit != '0' {
-			allZeros = false
-			break
-		}
-	}
+func ParseInteger[T integer](value T) string {
+	return parseIntegerToSring(value)
+}
 
-	if allZeros {
-		return floatWithoutDecimal
-	}
-
-	precision := len(floatPart)
-	return strconv.FormatFloat(value, 'f', precision, 64)
+func ParseFloat[T float](value T) string {
+	return parseFloatToSring(float64(value))
 }
