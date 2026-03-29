@@ -9,6 +9,15 @@ func TestParseFloat(t *testing.T) {
 	testParseFloatForNearZero(t)
 }
 
+func TestGetHelloWorld(t *testing.T) {
+	const expected = "Hello, world."
+	result := GetHelloWorld()
+
+	if result != expected {
+		t.Errorf("Expected '%s', got '%s'", expected, result)
+	}
+}
+
 func testParseFloatForZero(t *testing.T) {
 	const zero = 0.0000000000
 	const expected = "0.0"

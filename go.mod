@@ -3,11 +3,13 @@ module adtech.com/go_monorepo
 go 1.25.7
 
 // ANCHOR - direct dependencies
-require rsc.io/quote v1.5.2
+require (
+	adtech.com/concurrency v0.0.0-unpublished
+	rsc.io/quote v1.5.2
+)
 
 // ANCHOR - dependencies replaces
-// require adtech.com/utils v0.0.0-unpublished
-// replace adtech.com/utils v0.0.0-unpublished => ./modules
+replace adtech.com/concurrency v0.0.0-unpublished => ./modules/concurrency
 
 // ANCHOR - indirect dependencies
 require (

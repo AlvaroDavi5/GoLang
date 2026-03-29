@@ -3,20 +3,29 @@ package main
 import (
 	log "log"
 
+	concurrency "adtech.com/concurrency"
 	arith "adtech.com/go_monorepo/packages/arithmetics"
 	str "adtech.com/go_monorepo/packages/strings"
 )
 
 func main() {
 	helloWorld := str.GetHelloWorld()
-	println(helloWorld, "\n")
+	println(helloWorld)
 
+	startConcurrency()
 	calculate(10.0, 5.0)
 
 	println("\nDONE\n")
 }
 
+func startConcurrency() {
+	println("\nStarting concurrency module...")
+	concurrency.Start()
+}
+
 func calculate(a float64, b float64, c ...float64) {
+	println("\nCalculating...")
+
 	y := 2.0
 	if len(c) > 0 {
 		y = c[0]
