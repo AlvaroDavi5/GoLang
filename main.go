@@ -5,6 +5,7 @@ import (
 
 	concurrency "adtech.com/concurrency"
 	arith "adtech.com/go_monorepo/packages/arithmetics"
+	obj "adtech.com/go_monorepo/packages/objects"
 	str "adtech.com/go_monorepo/packages/strings"
 )
 
@@ -13,6 +14,7 @@ func main() {
 	println(helloWorld)
 
 	startConcurrency()
+	handleObjects()
 	calculate(10.0, 5.0)
 
 	println("\nDONE\n")
@@ -21,6 +23,26 @@ func main() {
 func startConcurrency() {
 	println("\nStarting concurrency module...")
 	concurrency.Start()
+}
+
+func handleObjects() {
+	println("\nHandling objects...")
+
+	wolf := obj.NewRunningAnimal("canis lupus", "Wolf", "Howl!", 60)
+	wolf.Speak()
+	wolf.Run()
+
+	dog := obj.NewRunningAnimal("canis lupus familiaris", "Dog", "Woof!", 40)
+	dog.Animal.Speak()
+	dog.Run()
+
+	eagle := obj.NewFlyingAnimal("aquila chrysaetos", "Eagle", "Screech!", 160)
+	eagle.Speak()
+	eagle.Fly()
+
+	dolphin := obj.NewSwimmingAnimal("delphinus delphis", "Dolphin", "Click!", 60)
+	dolphin.Speak()
+	dolphin.Swim()
 }
 
 func calculate(a float64, b float64, c ...float64) {
