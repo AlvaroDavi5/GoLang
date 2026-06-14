@@ -21,12 +21,12 @@ func createGoroutine(identifier string, delayMs int, callback func()) goRoutine 
 }
 
 func runGoroutines(routines []goRoutine) {
-	var wg sync.WaitGroup
+	var waitGroup sync.WaitGroup
 
 	fmt.Println("Starting goroutines...")
 
 	worker := func(routine goRoutine) {
-		defer wg.Done()
+		defer waitGroup.Done()
 		fmt.Printf("\tgoroutine %s: started\n", routine.id)
 		time.Sleep(routine.delay * 50)
 		if routine.function != nil {
@@ -36,11 +36,11 @@ func runGoroutines(routines []goRoutine) {
 	}
 
 	for i := range routines {
-		wg.Add(1)
+		waitGroup.Add(1)
 		go worker(routines[i])
 	}
 
-	wg.Wait()
+	waitGroup.Wait()
 
 	fmt.Println("All goroutines finished")
 }
