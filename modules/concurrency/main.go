@@ -18,6 +18,6 @@ func Start() {
 	fmt.Println("\n--- Events ---")
 	const topicName = "order.created"
 	events := []string{"order-001", "order-002"}
-	runEvents(topicName, events)
-
+	subscribers := []string{"Alice", "Bob"}
+	runEvents(topicName, subscribers, events)
 }

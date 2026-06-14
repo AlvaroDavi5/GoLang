@@ -39,20 +39,20 @@ func newEventBus() *EventBus {
 	return &EventBus{subscribers: make(map[string][]chan string)}
 }
 
-func runEvents(topic string, events []string) {
+func runEvents(topic string, subscribers []string, events []string) {
 	bus := newEventBus()
 	var waitGroup sync.WaitGroup
 
-	for i := 1; i <= 2; i++ {
+	for i, subscriber := range subscribers {
 		sub := bus.subscribeOnTopic(topic)
 		waitGroup.Add(1)
 
-		go func(id int, ch <-chan string) {
+		go func(id int, subscriber string, ch <-chan string) {
 			defer waitGroup.Done()
 			for event := range ch {
-				fmt.Printf("  subscriber %d received: %q\n", id, event)
+				fmt.Printf("Subscriber %s received: %q\n", subscriber, event)
 			}
-		}(i, sub)
+		}(i, subscriber, sub)
 	}
 
 	for _, event := range events {
