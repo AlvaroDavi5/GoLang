@@ -34,11 +34,11 @@ func Start() {
 	cron3.start()
 	cron4.start()
 
-	// NOTE - Channels: Demonstrates unbuffered, buffered, and directional channels with fan-out/fan-in
-	fmt.Println("\n--- Channels ---")
-	runChannels()
-
 	// NOTE - Async Tasks: Runs a task asynchronously and retrieves its result via a channel (future pattern)
 	fmt.Println("\n--- Async Tasks ---")
 	runAsyncTasks()
+
+	// NOTE - Channels: Demonstrates unbuffered, buffered, and directional channels with fan-out/fan-in
+	fmt.Println("\n--- Channels ---")
+	runChannels()
 }
