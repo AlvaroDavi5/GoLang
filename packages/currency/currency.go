@@ -42,17 +42,17 @@ func (c CurrencyStruct) ParseTo(newCurrency CurrencyCode) (CurrencyStruct, error
 		}
 	case USD:
 		if currency == BRL {
-			multiplier = 0.19
+			multiplier = 1 / 5.21
 		}
 		if currency == EUR {
 			multiplier = 1.12
 		}
 	case EUR:
 		if currency == BRL {
-			multiplier = 0.17
+			multiplier = 1 / 5.85
 		}
 		if currency == USD {
-			multiplier = 0.89
+			multiplier = 1 / 1.12
 		}
 	default:
 		return CurrencyStruct{}, errors.New("unsupported currency")

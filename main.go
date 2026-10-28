@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	log "log"
 
 	concurrency "adtech.com/concurrency"
@@ -50,9 +51,24 @@ func handleObjects() {
 	dolphin.Swim()
 }
 
-func handleStructWithInterface(c currency.CurrencyInterface) {
+func handleStructWithInterface(currencyStruct any) {
 	println("\nHandling struct with interface...")
-	println("Currency:", c.ToString())
+
+	// Check if the provided struct is of type CurrencyStruct
+	c, ok := currencyStruct.(currency.CurrencyStruct)
+	if !ok {
+		fmt.Println("The provided struct is not of type CurrencyStruct.")
+		return
+	}
+
+	// Check if the provided struct implements the CurrencyInterface
+	switch v := currencyStruct.(type) {
+	case currency.CurrencyInterface:
+		println("Currency:", v.ToString())
+	default:
+		fmt.Println("The provided struct does not implement the CurrencyInterface.")
+		return
+	}
 
 	parsedCurrency, err := c.ParseTo(currency.BRL)
 	if err != nil {
