@@ -5,6 +5,7 @@ import (
 
 	concurrency "adtech.com/concurrency"
 	arith "adtech.com/go_monorepo/packages/arithmetics"
+	currency "adtech.com/go_monorepo/packages/currency"
 	obj "adtech.com/go_monorepo/packages/objects"
 	str "adtech.com/go_monorepo/packages/strings"
 )
@@ -15,6 +16,10 @@ func main() {
 
 	startConcurrency()
 	handleObjects()
+	handleStructWithInterface(currency.CurrencyStruct{
+		ValueInCents: 100,
+		CurrencyCode: currency.USD,
+	})
 	calculate(10.0, 5.0)
 
 	println("\nDONE\n")
@@ -43,6 +48,23 @@ func handleObjects() {
 	dolphin := obj.NewSwimmingAnimal("delphinus delphis", "Dolphin", "Click!", 60)
 	dolphin.Speak()
 	dolphin.Swim()
+}
+
+func handleStructWithInterface(c currency.CurrencyInterface) {
+	println("\nHandling struct with interface...")
+	println("Currency:", c.ToString())
+
+	parsedCurrency, err := c.ParseTo(currency.BRL)
+	if err != nil {
+		log.Fatalf("Error parsing currency: %s", err.Error())
+	}
+	println("Parsed Currency:", parsedCurrency.ToString())
+
+	revertedCurrency, err := parsedCurrency.ParseTo(currency.USD)
+	if err != nil {
+		log.Fatalf("Error parsing currency back to USD: %s", err.Error())
+	}
+	println("Reverted Currency:", revertedCurrency.ToString())
 }
 
 func calculate(a float64, b float64, c ...float64) {
